@@ -1,0 +1,39 @@
+// 2 pointers appriach , can use treeset also
+
+
+class Solution {
+    public static ArrayList<Integer> findUnion(int[] a, int[] b) {
+     Arrays.sort(a);
+        Arrays.sort(b);  // Sort both arrays
+        // code here
+        int i=0,j=0;
+        
+        ArrayList <Integer> arr = new ArrayList<>();
+        
+        while(i<a.length && j<b.length){
+            if(a[i]<=b[j]){
+                if(arr.size() == 0 || arr.get(arr.size()-1) != a[i])
+                     arr.add(a[i]);
+                    i++;}
+                else{
+                    if (arr.size() == 0 || arr.get(arr.size()-1) != b[j])
+                  arr.add(b[j]);
+                   j++;
+                    }
+                }
+                
+                while (i<a.length){
+            if (arr.get(arr.size()-1) != a[i])
+      arr.add(a[i]);
+    i++;
+  }
+  while (j < b.length) // If any elements left in arr2
+  {
+    if (arr.get(arr.size()-1) != b[j])
+      arr.add(b[j]);
+    j++;
+  }
+  return arr;
+        
+        }
+}
