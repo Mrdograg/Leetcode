@@ -1,0 +1,45 @@
+// brute 
+
+import java.util.Arrays;
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        Arrays.sort(nums); // sort so duplicates are together
+        int last = nums[0];
+        int count = 1;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == last) {
+                count++;
+            } else {
+                if (count == 1) {
+                    return last; // found the unique number
+                }
+                last = nums[i];
+                count = 1; // reset for the new number
+            }
+        }
+
+        // If the single number is at the end
+        if (count == 1) {
+            return last;
+        }
+
+        return -1; // fallback (should not happen in valid input)
+    }
+}
+
+
+// optimal bit manipulation XOR 
+import java.util.Arrays;
+
+class Solution {
+    public int singleNumber(int[] nums) {
+       int number = 0, n = nums.length;
+       for (int i = 0;i<n;i++){
+        number = number^nums[i];
+       }
+       return number;
+    }
+}
+
