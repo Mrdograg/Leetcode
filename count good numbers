@@ -1,0 +1,53 @@
+// brute forcce 
+
+class Solution {
+    public int countGoodNumbers(long n) {
+        long arr[] = new long[(int)n];
+        for (int i = 0; i <= arr.length - 1; i++) {
+            if (i % 2 == 0) {
+                arr[i] = 5;
+            } else {
+                arr[i] = 4;
+            }
+        }
+
+        long result = 1;
+        for (int i = 0; i <= arr.length - 1; i++) {
+            result *= arr[i];
+             result %= 1000000007; // To handle large values
+        }
+        return (int)result;
+    }
+}
+
+
+// optimal 
+
+class Solution {
+    public int MOD = 1000000007;
+
+    public int countGoodNumbers(long n) {
+        long evenCount = (n + 1) / 2;  
+        long oddCount = n / 2;       
+
+        long evenPow = power(5, evenCount);
+        long oddPow = power(4, oddCount);
+
+        return (int)((evenPow * oddPow) % MOD);
+    }
+
+    private long power(long base, long exp) {
+        long result = 1;
+        base %= MOD;
+
+        while (exp > 0) {
+            if (exp % 2 == 1) result = (result * base) % MOD;
+            base = (base * base) % MOD;
+            exp /= 2;
+        }
+
+        return result;
+    }
+}
+
+
