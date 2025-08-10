@@ -1,0 +1,54 @@
+// strings anagram - brute 
+
+import java.util.Arrays;
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (Arrays.equals(strings(s), strings(t))) {
+            return true;
+        }
+        return false;
+    }
+
+    private static char[] strings(String s) {
+        char[] arr = new char[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            arr[i] = s.charAt(i);
+        }
+        Arrays.sort(arr);
+        return arr;
+    }
+}
+
+
+// optimal 
+
+class Solution {
+
+    public boolean isAnagram(String s, String t) {
+
+        if(s.length() != t.length())
+        {
+            return false;
+        }
+
+        int[] counts = new int[26];
+
+        for(int i = 0; i < s.length(); i ++)
+        {
+            counts[s.charAt(i) - 'a'] ++;
+
+            counts[t.charAt(i) - 'a'] --;
+        }
+
+        for(int count : counts)
+        {
+            if(count != 0)
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}
