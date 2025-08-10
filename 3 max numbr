@@ -1,0 +1,58 @@
+// brute tc - n logn 
+import java.util.*;
+
+class Solution {
+    public int thirdMax(int[] nums) {
+        Arrays.sort(nums); // Sorts in ascending order
+
+        // Use a TreeSet to remove duplicates and maintain sorted order
+        Set<Integer> s = new TreeSet<>();
+        for (int num : nums) {
+            s.add(num);
+        }
+
+        // Convert the set back to an array (or list) for index access
+        Integer[] arr = s.toArray(new Integer[0]);
+
+        if (arr.length < 3) {
+            return arr[arr.length - 1]; // Return max if less than 3 distinct numbers
+        }
+
+        return arr[arr.length - 3]; // Return third maximum
+    }
+}
+
+
+// otpimal 
+
+class Solution {
+    public int thirdMax(int[] nums) {
+        Long first = null;
+        Long second = null;
+        Long third = null;
+
+        for (int num : nums) {
+            long n = (long) num;
+
+            // Skip duplicates
+            if ((first != null && n == first) ||
+                (second != null && n == second) ||
+                (third != null && n == third)) {
+                continue;
+            }
+
+            if (first == null || n > first) {
+                third = second;
+                second = first;
+                first = n;
+            } else if (second == null || n > second) {
+                third = second;
+                second = n;
+            } else if (third == null || n > third) {
+                third = n;
+            }
+        }
+
+        return third == null ? first.intValue() : third.intValue();
+    }
+}
