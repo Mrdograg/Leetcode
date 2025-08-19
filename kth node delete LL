@@ -1,0 +1,78 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        int count =0;
+        ListNode temp = head;
+        while (temp!=null){
+            count++;
+            temp=temp.next;;
+        }
+
+        int d = count - n;
+
+       if(d==0){
+        return head.next;
+       }
+
+      temp = head; // reset temp to head
+        for (int i = 0; i < d - 1; i++) {
+            temp = temp.next;
+        }
+
+        // Skip the target node
+        ListNode delNode = temp.next;
+        temp.next = temp.next.next;
+        delNode = null;
+
+        return head;
+    }
+}
+
+// optimal 
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode fast = head ;
+        ListNode slow = head;
+
+        // Move fast ahead by n+1 steps
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+
+        if(fast ==null){
+            return head.next;
+        }
+
+        // Move both pointers until fast reaches the end
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        // Skip the target node
+        ListNode del = slow.next;
+        slow.next = slow.next.next;
+        del = null;
+        return head;
+    }
+}
