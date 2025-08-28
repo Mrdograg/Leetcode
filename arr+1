@@ -1,0 +1,19 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int n = digits.length;
+        
+        // Traverse the digits from right to left
+        for (int i = n - 1; i >= 0; i--) {
+            if (digits[i] < 9) {
+                digits[i]++; // Increment the current digit
+                return digits; // No carry, return the result
+            }
+            digits[i] = 0; // Set current digit to 0 if it's 9, and continue
+        }
+        
+        // If all digits were 9, we need an additional place for 1 (e.g., 999 → 1000)
+        int[] result = new int[n + 1];
+        result[0] = 1; // Set the first digit to 1
+        return result; // Return the result with an additional digit
+    }
+}
