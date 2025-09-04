@@ -1,0 +1,80 @@
+// brute 
+import java.util.*;
+
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        List<List<Integer>> arr = new ArrayList<>();
+        List<Integer> arr1 = new ArrayList<>();
+        List<Integer> arr2 = new ArrayList<>();
+
+        // Elements in nums1 not in nums2
+        for (int i = 0; i < nums1.length; i++) {
+            boolean found = false;
+            for (int j = 0; j < nums2.length; j++) {
+                if (nums1[i] == nums2[j]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found && !arr1.contains(nums1[i])) {
+                arr1.add(nums1[i]);
+            }
+        }
+
+        // Elements in nums2 not in nums1
+        for (int i = 0; i < nums2.length; i++) {
+            boolean found = false;
+            for (int j = 0; j < nums1.length; j++) {
+                if (nums2[i] == nums1[j]) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found && !arr2.contains(nums2[i])) {
+                arr2.add(nums2[i]);
+            }
+        }
+
+        arr.add(arr1);
+        arr.add(arr2);
+
+        return arr;
+    }
+}
+
+
+// optimal 
+
+import java.util.*;
+
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        List<List<Integer>> arr = new ArrayList<>();
+        List<Integer> arr1 = new ArrayList<>();
+        List<Integer> arr2 = new ArrayList<>();
+        Set<Integer> s1 = new HashSet<>();
+        Set<Integer> s2 = new HashSet<>();
+
+        for(int num:nums1){
+            s1.add(num);
+        }
+        for(int num:nums2){
+            s2.add(num);
+        }
+         
+         for(int num:s1){
+            if(!s2.contains(num))
+            arr1.add(num);
+        }
+
+         for(int num:s2){
+            if(!s1.contains(num))
+            arr2.add(num);
+        }
+
+        arr.add(arr1);
+        arr.add(arr2);
+
+        return arr;
+    }
+}
